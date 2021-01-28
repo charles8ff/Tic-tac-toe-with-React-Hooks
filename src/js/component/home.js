@@ -1,24 +1,60 @@
-import React from "react";
+import React, { Fragment, useState, useEffect } from "react";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+// import Row from "react-bootstrap/Row";
+// import Col from "react-bootstrap/Col";
+import { Square } from "./square.jsx";
+import { MyModal } from "./mymodal.jsx";
 
-//create your first component
 export function Home() {
+	const [modalShow, setModalShow] = useState(false);
+	const [turn, setTurn] = useState(true); //true is first player
+	// const [where, setWhere] = useState();
+	let symbolsWePlay = ["x", "o"];
+	let isPlaying = null;
+
+	//let Board = [null, null, null, null, null, null, null, null, null];
+	const [Board, setBoard] = useState(new Array(9).fill(null));
+
+	useEffect(
+		() => {
+			turn
+				? (isPlaying = symbolsWePlay[0])
+				: (isPlaying = symbolsWePlay[1]);
+		},
+		[Board]
+	);
+	function onUserClick(index) {
+		// console.log(Board);
+		// let newBoard = Board;
+		// newBoard[index] = isPlaying; //fix setter
+		// console.log(newBoard);
+		// setBoard(newBoard);
+
+		// console.log(newBoard);
+		setTurn(!turn);
+	}
+	let BoardinHTML = Board.map((squareContent, indexOfSquare) => {
+		return (
+			<Square
+				onMyClick={() => onUserClick(indexOfSquare)}
+				key={indexOfSquare}
+				mykey={indexOfSquare}
+				squareSymbol={squareContent}
+			/>
+		);
+	});
+
 	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
+		<>
+			<Button variant="primary" onClick={() => setModalShow(true)}>
+				Play a Game!
+			</Button>
+
+			<MyModal show={modalShow} onHide={() => setModalShow(false)} />
+
+			<Container className="d-flex flex-wrap ">{BoardinHTML}</Container>
+		</>
 	);
 }
