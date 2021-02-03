@@ -1,39 +1,46 @@
-import React from "react";
-import Modal from "react-bootstrap/Modal";
-import ModalDialog from "react-bootstrap/ModalDialog";
-import ModalHeader from "react-bootstrap/ModalHeader";
-import ModalTitle from "react-bootstrap/ModalTitle";
-import ModalBody from "react-bootstrap/ModalBody";
-import ModalFooter from "react-bootstrap/ModalFooter";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { Modal } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 export const MyModal = props => {
+	const [showModal, setShowModal] = useState(false);
+	const handleShow = () => setShowModal(true);
+	const handleClose = () => setShowModal(false);
+
+	const [firstPlayer, setFirstPlayer] = useState("");
+	const [secondPlayer, setSecondPlayer] = useState("");
+
 	return (
-		<Modal {...props} aria-labelledby="contained-modal-title-vcenter">
-			<Modal.Header>
-				<Modal.Title>Play TicTacToe with a friend!</Modal.Title>
-			</Modal.Header>
-			<Modal.Body className="show-grid">
-				<Container>
-					<Row>
-						<Col md={4}>Player1</Col>
-						<Col md={{ span: 4, offset: 2 }}>Player2</Col>
-					</Row>
-
-					<Row>
-						<Col md={4}>imagine an input</Col>
-
-						<Col md={{ span: 4, offset: 2 }}>imagine an input</Col>
-					</Row>
-				</Container>
-			</Modal.Body>
-			<Modal.Footer>
-				<Button onClick={props.onHide}>Start!</Button>
-			</Modal.Footer>
-		</Modal>
+		<>
+			<button onClick={handleShow}>LET´S PLAY</button>
+			<Modal.Dialog show={showModal} onHide={handleClose}>
+				<Modal.Header>
+					<Modal.Title>TicTacToe with React!</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<p>Choose your side!</p>
+					<input
+						type="text"
+						onChange={e => {
+							setFirstPlayer(e.target.value);
+						}}
+						value={firstPlayer}
+						placeholder="One warrior"
+					/>
+					<input
+						type="text"
+						onChange={e => setSecondPlayer(e.target.value)}
+						value={secondPlayer}
+						placeholder="Against another"
+					/>
+				</Modal.Body>
+				<Modal.Footer>
+					<Button variant="secondary" onClick={handleClose}>
+						Fight!
+					</Button>
+				</Modal.Footer>
+			</Modal.Dialog>
+		</>
 	);
 };
