@@ -41,26 +41,21 @@ export const Board = props => {
 		winnerDiv.classList.remove("d-flex", "align-items-center");
 		setFirstPlayer("");
 		setSecondPlayer("");
-		setBuilt(buildBoard());
 	};
-	const buildBoard = () => {
-		let boardInHTML = board.map((elem, index) => {
-			return (
-				<Square
-					isFilled={"dark"}
-					key={index}
-					squareSymbol={elem}
-					onMyClick={e => {
-						SquareClick(e, index);
-					}}
-				/>
-			);
-		});
-		console.log(board, boardInHTML);
-		return boardInHTML;
-	};
-	const [built, setBuilt] = useState(buildBoard());
-	const calculateWinner = board => {
+
+	let boardInHTML = board.map((elem, index) => {
+		return (
+			<Square
+				key={index}
+				squareSymbol={elem}
+				onMyClick={e => {
+					SquareClick(e, index);
+				}}
+			/>
+		);
+	});
+
+	const winnerWizard = board => {
 		const lines = [
 			[0, 1, 2],
 			[3, 4, 5],
@@ -80,7 +75,7 @@ export const Board = props => {
 		return null;
 	};
 
-	let winner = calculateWinner(board);
+	let winner = winnerWizard(board);
 
 	useEffect(
 		() => {
@@ -108,15 +103,15 @@ export const Board = props => {
 				</span>
 			</div>
 			<div className="container d-flex justify-content-center">
-				<div className="row d-flex justify-content-center align-self-center flex-wrap mt-2">
-					{built}
+				<div className="row d-flex justify-content-center align-self-center flex-wrap mt-2 boardContainer">
+					{boardInHTML}
 				</div>
 			</div>
 			<div className="row d-flex justify-content-center mt-2">
 				<button
-					className="btn btn-dark mb-3 resetButton"
+					className="btn btn-danger mb-3 resetButton"
 					onClick={resetBoard}>
-					RESET
+					RESET BOARD
 				</button>
 			</div>
 		</>

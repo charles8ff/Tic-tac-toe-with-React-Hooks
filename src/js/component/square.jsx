@@ -6,9 +6,12 @@ export const Square = props => {
 	return (
 		<div
 			id={props.index}
-			bg={!props.squareSymbol ? "dark" : "info"}
 			border="dark"
-			className="col-4 rounded align-content-center justify-content-center p-0 m-0"
+			className={
+				props.squareSymbol === null
+					? "square col-4 rounded d-flex align-items-center justify-content-center p-0 bg-dark"
+					: "square col-4 rounded d-flex align-items-center justify-content-center p-0 bg-info"
+			}
 			onClick={e => {
 				props.onMyClick(e);
 			}}>
@@ -17,7 +20,6 @@ export const Square = props => {
 	);
 };
 Square.propTypes = {
-	isFilled: PropTypes.string,
 	index: PropTypes.any,
 	squareSymbol: PropTypes.string,
 	onMyClick: PropTypes.func

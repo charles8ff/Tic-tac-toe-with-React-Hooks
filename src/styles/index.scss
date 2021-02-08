@@ -1,13 +1,36 @@
 @import "~bootstrap/scss/bootstrap.scss";
 
-/* 
-
-    You can write your own styles here...
-    
-    
-    ...Or you can use the import command to include 
-    other sylesheets into your bunde as well, e.j:
-    
-    import 'relative/path/to/stylesheet.scss';
-
-*/
+.square{
+    width: 12rem;
+    height: 12rem;
+    font-size: 7rem;
+    font-weight: 900;
+}
+.boardContainer{
+    max-width: 36rem;
+}
+body{
+    max-width: 100%;
+    background-image: url("https://image.freepik.com/vector-gratis/versus-vs-lucha-batalla-fondo-pantalla_1017-23762.jpg");
+    background-size: cover;
+    font-family: 'Stalinist One', cursive;
+    color: whitesmoke;
+}
+.app {
+    max-width: 90%;
+}
+.modalTitle{
+    color: black;
+}
+.modalContent{
+    color: darkblue;
+    height: 10rem;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.modalContent>div>span{
+    align-self: center;
+}
+.modal-content{
+    background-color: lightcyan;
+}

@@ -7,12 +7,12 @@ import "../../styles/index.scss";
 
 export const Home = () => {
 	return (
-		<Fragment>
-			<div className="row d-flex justify-content-center title">
-				<h1>TicTacToe React JSX</h1>
+		<div className="container mainContainer">
+			<div className="row d-flex justify-content-center mt-5">
+				<h1>TicTacToe with React JSX</h1>
 			</div>
 			<MyModal />
 			<Board />
-		</Fragment>
+		</div>
 	);
 };

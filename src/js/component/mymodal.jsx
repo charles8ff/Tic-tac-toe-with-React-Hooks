@@ -31,10 +31,21 @@ export const MyModal = props => {
 				<Modal show={show} onHide={handleClose}>
 					<Modal.Header className="d-flex justify-content-center modalHeader">
 						<Modal.Title className="modalTitle">
-							TicTacToc
+							TicTacToe
 						</Modal.Title>
 					</Modal.Header>
 					<div className="row d-flex justify-content-center modalContent">
+						<div className="col-4 d-flex flex-column p-0">
+							<span>Player 1</span>
+						</div>
+						<div className="col-2 d-flex flex-column p-0">
+							<span>VS</span>
+						</div>
+						<div className="col-4 d-flex flex-column p-0">
+							<span>Player 2</span>
+						</div>
+					</div>
+					<div className="row d-flex justify-content-center">
 						<div className="col-5 d-flex flex-column">
 							<input
 								type="text"
@@ -42,25 +53,23 @@ export const MyModal = props => {
 									setFirstPlayer(e.target.value);
 								}}
 								value={firstPlayer}
-								placeholder="Please type your name"
+								placeholder="Type Name"
 							/>
-							<i className="fas fa-times fa-3x d-flex justify-content-center" />
 						</div>
 						<div className="col-5 d-flex flex-column">
 							<input
 								type="text"
 								onChange={e => setSecondPlayer(e.target.value)}
 								value={secondPlayer}
-								placeholder="Please type your name"
+								placeholder="Type Name"
 							/>
-							<i className="fas fa-circle fa-3x d-flex justify-content-center" />
 						</div>
 					</div>
 					<Modal.Footer className="d-flex justify-content-center modalFooter">
 						<button
-							className="btn btn-outline-secondary"
+							className="btn btn-outline-danger"
 							onClick={handleClose}>
-							GO
+							DUEL!
 						</button>
 					</Modal.Footer>
 				</Modal>
