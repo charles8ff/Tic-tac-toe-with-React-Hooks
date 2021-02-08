@@ -1,37 +1,24 @@
 import React, { useState } from "react";
-import Card from "react-bootstrap/Card";
+
 import PropTypes from "prop-types";
 
 export const Square = props => {
-	const [isFilled, setFilled] = useState(false);
-	let mySymbol = null;
-	let myBg = "dark";
-
-	if (isFilled) {
-		mySymbol = props.squareSymbol;
-		myBg = "info";
-	} else {
-		mySymbol = null;
-		myBg = "dark";
-	}
-
 	return (
-		<Card
-			onClick={() => {
-				props.onMyClick();
-				setFilled(true);
-			}}
-			bg={myBg}
+		<div
+			id={props.index}
+			bg={!props.squareSymbol ? "dark" : "info"}
 			border="dark"
-			className="col-4 rounded"
-			style={{ height: "12rem" }}>
-			<Card.Body>{mySymbol} </Card.Body>
-		</Card>
+			className="col-4 rounded align-content-center justify-content-center p-0 m-0"
+			onClick={e => {
+				props.onMyClick(e);
+			}}>
+			{props.squareSymbol}
+		</div>
 	);
 };
 Square.propTypes = {
+	isFilled: PropTypes.string,
+	index: PropTypes.any,
 	squareSymbol: PropTypes.string,
-	onMyClick: PropTypes.func,
-	where: PropTypes.any,
-	mykey: PropTypes.any
+	onMyClick: PropTypes.func
 };
