@@ -1,36 +1,18 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import { Square } from "./square.jsx";
 import { MyModal } from "./mymodal.jsx";
+// import { Board } from "./board.jsx";
 
-export function Home() {
-	const [turn, setTurn] = useState(true); //true is first player
-	let symbolsWePlay = ["x", "o"];
-	let isPlaying = null;
+import "../../styles/index.scss";
 
-	const [Board, setBoard] = useState(new Array(9).fill(null));
-
-	function onUserClick(index) {
-		setTurn(!turn);
-	}
-	let BoardinHTML = Board.map((squareContent, indexOfSquare) => {
-		return (
-			<Square
-				onMyClick={() => onUserClick(indexOfSquare)}
-				key={indexOfSquare}
-				mykey={indexOfSquare}
-				squareSymbol={squareContent}
-			/>
-		);
-	});
-
+export const Home = () => {
 	return (
-		<>
+		<Fragment>
+			<div className="row d-flex justify-content-center title">
+				<h1>TicTacToe React JSX</h1>
+			</div>
 			<MyModal />
-
-			<Container className="d-flex flex-wrap ">{BoardinHTML}</Container>
-		</>
+			{/* <Board /> */}
+		</Fragment>
 	);
-}
+};
