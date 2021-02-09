@@ -15,7 +15,7 @@ export const MyModal = props => {
 	return (
 		<>
 			<div className="row d-flex mt-5">
-				<h3 className="offset-3 col-7 d-flex justify-content-start rounded">
+				<h3 className="offset-1 col-9 d-flex justify-content-start rounded">
 					<span className="daPlayers">
 						First Player: {" " + firstPlayer}
 					</span>
@@ -77,7 +77,7 @@ export const MyModal = props => {
 				</div>
 			</div>
 			<div className="row d-flex">
-				<h3 className="offset-3 col-7 d-flex justify-content-start rounded">
+				<h3 className="offset-1 col-9 d-flex justify-content-start rounded">
 					<span className="daPlayers">
 						Second Player: {" " + secondPlayer}
 					</span>

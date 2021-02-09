@@ -79,15 +79,24 @@ export const Board = props => {
 
 	useEffect(
 		() => {
-			if (winner == "X") {
-				setFirstPlayer("LeFirstPlayer");
-				winnerDiv.classList.remove("d-none");
-				winnerDiv.classList.add("d-flex", "align-items-center");
-			}
-			if (winner == "O") {
-				setSecondPlayer("LeSecondPlayer");
-				winnerDiv.classList.remove("d-none");
-				winnerDiv.classList.add("d-flex", "align-items-center");
+			if (winner == "X" || winner == "O") {
+				setPlayer(true);
+				if (winner == "X") {
+					setFirstPlayer("LeFirstPlayer");
+					winnerDiv.classList.remove("d-none");
+					winnerDiv.classList.add("d-flex", "align-items-center");
+				} else {
+					setSecondPlayer("Le2ndPlayer");
+					winnerDiv.classList.remove("d-none");
+					winnerDiv.classList.add("d-flex", "align-items-center");
+				}
+				setTimeout(() => {
+					winnerDiv.classList.add("d-none");
+					winnerDiv.classList.remove("d-flex", "align-items-center");
+					setBoard(Array(9).fill(null));
+					setFirstPlayer("");
+					setSecondPlayer("");
+				}, 3000);
 			}
 		},
 		[winner]
@@ -96,7 +105,7 @@ export const Board = props => {
 	return (
 		<>
 			<div className="row d-flex justify-content-center align-items-center">
-				<div className="offset-3 col-5 justify-content-center align-items-center">
+				<div className="offset-2 col-7 justify-content-center align-items-center">
 					<span
 						className="d-none alert alert-success justify-content-center"
 						id="winnerDiv">
@@ -105,7 +114,7 @@ export const Board = props => {
 						{" " + secondPlayer}
 					</span>
 				</div>
-				<div className="col-4 d-flex justify-content-end mt-2">
+				<div className="col-3 d-flex justify-content-end mt-2">
 					<button
 						className="btn btn-warning mb-3 resetButton"
 						onClick={resetBoard}>
