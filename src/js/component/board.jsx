@@ -1,46 +1,34 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-
 import { MyModal } from "./mymodal.jsx";
 import { Square } from "./square.jsx";
 
 export const Board = props => {
-	const [player, setPlayer] = useState(true);
 	const winnerDiv = document.querySelector("#winnerDiv");
-	const [firstPlayer, setFirstPlayer] = useState("");
-	const [secondPlayer, setSecondPlayer] = useState("");
-	const [board, setBoard] = useState([
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null
-	]);
+	const [player, setPlayer] = useState(true);
+	const [winnerPlayer, setWinnerPlayer] = useState("");
+	const [board, setBoard] = useState(Array(9).fill(null));
 
 	const SquareClick = (e, index) => {
-		e.target.classList.remove("bg-dark");
-		e.target.classList.add("bg-info");
-		if (board[index] === null) {
-			if (player) {
-				board.splice(index, 1, "X");
-			} else {
-				board.splice(index, 1, "O");
+		if (winner == null) {
+			e.target.classList.remove("bg-dark");
+			e.target.classList.add("bg-info");
+			if (board[index] === null) {
+				if (player) {
+					board.splice(index, 1, "X");
+				} else {
+					board.splice(index, 1, "O");
+				}
+				setPlayer(!player);
 			}
-			setPlayer(!player);
 		}
 	};
 
 	const resetBoard = () => {
 		setPlayer(true);
-		setBoard([null, null, null, null, null, null, null, null, null]);
+		setBoard(Array(9).fill(null));
 		winnerDiv.classList.add("d-none");
 		winnerDiv.classList.remove("d-flex", "align-items-center");
-		setFirstPlayer("");
-		setSecondPlayer("");
 	};
 
 	let boardInHTML = board.map((elem, index) => {
@@ -72,31 +60,36 @@ export const Board = props => {
 				return board[a];
 			}
 		}
+		if (!board.some(elem => elem == null)) return "Tie";
 		return null;
 	};
 
 	let winner = winnerWizard(board);
 
+	const timeOut = () => {
+		setTimeout(() => {
+			winnerDiv.classList.add("d-none");
+			winnerDiv.classList.remove("d-flex", "align-items-center");
+			setBoard(Array(9).fill(null));
+			setWinnerPlayer("");
+		}, 3000);
+	};
+
 	useEffect(
 		() => {
 			if (winner == "X" || winner == "O") {
 				setPlayer(true);
-				if (winner == "X") {
-					setFirstPlayer("LeFirstPlayer");
-					winnerDiv.classList.remove("d-none");
-					winnerDiv.classList.add("d-flex", "align-items-center");
-				} else {
-					setSecondPlayer("Le2ndPlayer");
-					winnerDiv.classList.remove("d-none");
-					winnerDiv.classList.add("d-flex", "align-items-center");
-				}
-				setTimeout(() => {
-					winnerDiv.classList.add("d-none");
-					winnerDiv.classList.remove("d-flex", "align-items-center");
-					setBoard(Array(9).fill(null));
-					setFirstPlayer("");
-					setSecondPlayer("");
-				}, 3000);
+				winner == "X"
+					? setWinnerPlayer(props.player1)
+					: setWinnerPlayer(props.player2);
+				winnerDiv.classList.remove("d-none");
+				winnerDiv.classList.add("d-flex", "align-items-center");
+				timeOut();
+			} else if (winner == "Tie") {
+				setWinnerPlayer("No One :_(");
+				winnerDiv.classList.remove("d-none");
+				winnerDiv.classList.add("d-flex", "align-items-center");
+				timeOut();
 			}
 		},
 		[winner]
@@ -110,8 +103,7 @@ export const Board = props => {
 						className="d-none alert alert-success justify-content-center"
 						id="winnerDiv">
 						The Winner is
-						{" " + firstPlayer}
-						{" " + secondPlayer}
+						{" " + winnerPlayer}
 					</span>
 				</div>
 				<div className="col-3 d-flex justify-content-end mt-2">
@@ -129,4 +121,8 @@ export const Board = props => {
 			</div>
 		</>
 	);
+};
+MyModal.propTypes = {
+	player1: PropTypes.string,
+	player2: PropTypes.string
 };

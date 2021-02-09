@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-
-import { Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 
 export const MyModal = props => {
 	const [show, setShow] = useState(false);
 	const [firstPlayer, setFirstPlayer] = useState("");
 	const [secondPlayer, setSecondPlayer] = useState("");
-
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
-
 	return (
 		<>
 			<div className="row d-flex mt-5">
@@ -28,7 +24,7 @@ export const MyModal = props => {
 						LET´S PLAY
 					</button>
 					<Modal show={show} onHide={handleClose}>
-						<Modal.Header className="d-flex justify-content-center modalHeader">
+						<Modal.Header className="d-flex justify-content-center modalHeader border-0">
 							<Modal.Title className="modalTitle">
 								Tic Tac Toe
 							</Modal.Title>
@@ -49,7 +45,10 @@ export const MyModal = props => {
 								<input
 									type="text"
 									onChange={e => {
-										setFirstPlayer(e.target.value);
+										{
+											props.setPlayer1(e.target.value);
+											setFirstPlayer(e.target.value);
+										}
 									}}
 									value={firstPlayer}
 									placeholder="Type Name"
@@ -58,15 +57,16 @@ export const MyModal = props => {
 							<div className="col-5 d-flex flex-column">
 								<input
 									type="text"
-									onChange={e =>
-										setSecondPlayer(e.target.value)
-									}
+									onChange={e => {
+										props.setPlayer2(e.target.value);
+										setSecondPlayer(e.target.value);
+									}}
 									value={secondPlayer}
 									placeholder="Type Name"
 								/>
 							</div>
 						</div>
-						<Modal.Footer className="d-flex justify-content-center modalFooter">
+						<Modal.Footer className="d-flex justify-content-center modalFooter border-0">
 							<button
 								className="btn btn-outline-danger"
 								onClick={handleClose}>
@@ -85,4 +85,8 @@ export const MyModal = props => {
 			</div>
 		</>
 	);
+};
+MyModal.propTypes = {
+	setPlayer1: PropTypes.func,
+	setPlayer2: PropTypes.func
 };
