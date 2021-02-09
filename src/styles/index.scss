@@ -1,13 +1,13 @@
 @import "~bootstrap/scss/bootstrap.scss";
 
 .square{
-    width: 12rem;
-    height: 12rem;
-    font-size: 7rem;
+    width: 10rem;
+    height: 10rem;
+    font-size: 6rem;
     font-weight: 900;
 }
 .boardContainer{
-    max-width: 36rem;
+    max-width: 30rem;
 }
 body{
     max-width: 100%;
@@ -33,4 +33,10 @@ body{
 }
 .modal-content{
     background-color: lightcyan;
+}
+.square{
+    border: 3px solid black;
+}
+.daPlayers{
+    color: yellow;
 }

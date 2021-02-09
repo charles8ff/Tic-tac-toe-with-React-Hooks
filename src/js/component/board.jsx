@@ -96,23 +96,27 @@ export const Board = props => {
 	return (
 		<>
 			<div className="row d-flex justify-content-center align-items-center mt-2">
-				<span className="d-none alert alert-success" id="winnerDiv">
-					The Winner is
-					{" " + firstPlayer}
-					{" " + secondPlayer}
-				</span>
+				<div className="offset-3 col-5 justify-content-center align-items-center">
+					<span
+						className="d-none alert alert-success justify-content-center"
+						id="winnerDiv">
+						The Winner is
+						{" " + firstPlayer}
+						{" " + secondPlayer}
+					</span>
+				</div>
+				<div className="col-4 d-flex justify-content-end mt-2">
+					<button
+						className="btn btn-warning mb-3 resetButton"
+						onClick={resetBoard}>
+						RESET BOARD
+					</button>
+				</div>
 			</div>
 			<div className="container d-flex justify-content-center">
 				<div className="row d-flex justify-content-center align-self-center flex-wrap mt-2 boardContainer">
 					{boardInHTML}
 				</div>
-			</div>
-			<div className="row d-flex justify-content-center mt-2">
-				<button
-					className="btn btn-danger mb-3 resetButton"
-					onClick={resetBoard}>
-					RESET BOARD
-				</button>
 			</div>
 		</>
 	);
