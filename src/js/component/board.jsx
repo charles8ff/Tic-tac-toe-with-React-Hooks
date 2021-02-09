@@ -80,12 +80,12 @@ export const Board = props => {
 	useEffect(
 		() => {
 			if (winner == "X") {
-				setFirstPlayer("FirstPlayer");
+				setFirstPlayer("LeFirstPlayer");
 				winnerDiv.classList.remove("d-none");
 				winnerDiv.classList.add("d-flex", "align-items-center");
 			}
 			if (winner == "O") {
-				setSecondPlayer("SecondPlayer");
+				setSecondPlayer("LeSecondPlayer");
 				winnerDiv.classList.remove("d-none");
 				winnerDiv.classList.add("d-flex", "align-items-center");
 			}
@@ -95,7 +95,7 @@ export const Board = props => {
 
 	return (
 		<>
-			<div className="row d-flex justify-content-center align-items-center mt-2">
+			<div className="row d-flex justify-content-center align-items-center">
 				<div className="offset-3 col-5 justify-content-center align-items-center">
 					<span
 						className="d-none alert alert-success justify-content-center"

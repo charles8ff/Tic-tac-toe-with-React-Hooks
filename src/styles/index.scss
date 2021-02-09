@@ -1,13 +1,13 @@
 @import "~bootstrap/scss/bootstrap.scss";
 
 .square{
-    width: 10rem;
-    height: 10rem;
-    font-size: 6rem;
+    width: 9rem;
+    height: 9rem;
+    font-size: 5.5rem;
     font-weight: 900;
 }
 .boardContainer{
-    max-width: 30rem;
+    max-width: 27rem;
 }
 body{
     max-width: 100%;
@@ -42,4 +42,7 @@ body{
 }
 h1{
     color: rgb(28, 160, 248)
+}
+Board{
+    font-size: small;
 }
