@@ -4,32 +4,10 @@ import { MyModal } from "./mymodal.jsx";
 import { Square } from "./square.jsx";
 
 export const Board = props => {
-	const winnerDiv = document.querySelector("#winnerDiv");
-	const [player, setPlayer] = useState(true);
-	const [winnerPlayer, setWinnerPlayer] = useState("");
 	const [board, setBoard] = useState(Array(9).fill(null));
-
-	const SquareClick = (e, index) => {
-		if (winner == null) {
-			e.target.classList.remove("bg-dark");
-			e.target.classList.add("bg-info");
-			if (board[index] === null) {
-				if (player) {
-					board.splice(index, 1, "X");
-				} else {
-					board.splice(index, 1, "O");
-				}
-				setPlayer(!player);
-			}
-		}
-	};
-
-	const resetBoard = () => {
-		setPlayer(true);
-		setBoard(Array(9).fill(null));
-		winnerDiv.classList.add("d-none");
-		winnerDiv.classList.remove("d-flex", "align-items-center");
-	};
+	const [turn, setTurn] = useState(true);
+	const [winnerPlayer, setWinnerPlayer] = useState("");
+	const winnerDiv = document.querySelector("#winnerDiv");
 
 	let boardInHTML = board.map((elem, index) => {
 		return (
@@ -42,6 +20,37 @@ export const Board = props => {
 			/>
 		);
 	});
+
+	const SquareClick = (e, index) => {
+		if (winner == null) {
+			e.target.classList.remove("bg-dark");
+			e.target.classList.add("bg-info");
+			if (board[index] === null) {
+				if (turn) {
+					board.splice(index, 1, "X");
+				} else {
+					board.splice(index, 1, "O");
+				}
+				setTurn(!turn);
+			}
+		}
+	};
+
+	const resetBoard = () => {
+		setTurn(true);
+		setBoard(Array(9).fill(null));
+		winnerDiv.classList.add("d-none");
+		winnerDiv.classList.remove("d-flex", "align-items-center");
+	};
+
+	const timeOut = () => {
+		setTimeout(() => {
+			winnerDiv.classList.add("d-none");
+			winnerDiv.classList.remove("d-flex", "align-items-center");
+			setBoard(Array(9).fill(null));
+			setWinnerPlayer("");
+		}, 3000);
+	};
 
 	const winnerWizard = board => {
 		const lines = [
@@ -63,22 +72,12 @@ export const Board = props => {
 		if (!board.some(elem => elem == null)) return "Tie";
 		return null;
 	};
-
 	let winner = winnerWizard(board);
-
-	const timeOut = () => {
-		setTimeout(() => {
-			winnerDiv.classList.add("d-none");
-			winnerDiv.classList.remove("d-flex", "align-items-center");
-			setBoard(Array(9).fill(null));
-			setWinnerPlayer("");
-		}, 3000);
-	};
 
 	useEffect(
 		() => {
 			if (winner == "X" || winner == "O") {
-				setPlayer(true);
+				setTurn(true);
 				winner == "X"
 					? setWinnerPlayer(props.player1)
 					: setWinnerPlayer(props.player2);
